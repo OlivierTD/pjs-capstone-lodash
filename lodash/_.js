@@ -1,4 +1,3 @@
-
 let _ = {
   clamp(num, lowerBound, upperBound) {
   	if (num < lowerBound) {
@@ -31,14 +30,13 @@ let _ = {
     return str.split(' ');
   },
   pad(str, length) {
-    for (let i = 0; i < length - str.length; i++) {
-      if (i % 2 !== 0) {
-        str = str + ' ';
-      } else {
-        str = ' ' + str;
-      }
+    if (length <= str.length) {
+      return str
     }
-    return str;
+    let startPaddingLength = Math.floor((length - str.length) / 2);
+    let endPaddingLength = length - str.length - startPaddingLength;
+    let paddedString = " ".repeat(startPaddingLength) + str + " ".repeat(endPaddingLength);
+    return paddedString;
   },
   has(obj, key) {
     if (key in obj) {
@@ -77,7 +75,7 @@ let _ = {
       return !predicate(element, index, arr);
     });
     let droppedArray = this.drop(arr, dropNumber);
-    return droppedArray;
+    return droppedArray;    
   },
   chunk(arr, size) {
     if (!size) {
